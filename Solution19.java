@@ -18,15 +18,28 @@ import java.util.*;
  * 输入：board = [[1,1],[1,0]]
  * 输出：[[1,1],[1,1]]
  */
-class Solution {
+class Solution19 {
     public void gameOfLife(int[][] board) {
+        //异常处理1：输入为空
+        if (board == null || board.length == 0) {
+            throw new IllegalArgumentException("Board cannot be null or empty");
+        }
+
         int[] neighbors = {0, 1, -1};
 
-        int rows = board.length();
-        int cols = board(0).length;
+        int rows = board.length;
+        int cols = board[0].length;
+
+        //异常处理2：数组越界
+        for (int i = 1; i < rows; i++) {
+            if (board[i].length != cols) {
+                throw new IllegalArgumentException("All rows must have the same length");
+            }
+        }
+
 
         // 创建复制数组 copyBoard
-        int[][]() copyBoard = new int[rows][cols];
+        int[][] copyBoard = new int[rows][cols];
 
         // 从原数组复制一份到 copyBoard 中
         for (int row = 0; row < rows; row++) {
@@ -50,21 +63,20 @@ class Solution {
                             int c = (col + neighbors[j]);
 
                             // 查看相邻的细胞是否是活细胞
-                            if {(r < rows && r >= 0) && (c < cols && c >= 0) && (copyBoard[r][c] == 1)} {
+                            if (r < rows && r >= 0 && c < cols && c >= 0 && copyBoard[r][c] == 1) {
                                 liveNeighbors += 1;
                             }
                         }
                     }
                 }
-
+                //根据生命游戏规则更新细胞状态
+                //规则2不需要显示设置，因为初始复制时状态已经保留
                 // 规则 1 或规则 3
-                if ((copyBoard[row][col] === 1) && (liveNeighbors < 2 || liveNeighbors > 3)) {
+                if (copyBoard[row][col] == 1 && (liveNeighbors < 2 || liveNeighbors > 3)) {
                     board[row][col] = 0;
-                }
-                // 规则 4
-                if (copyBoard[row][col] == 0 && liveNeighbors == 3) {
+                } else if (copyBoard[row][col] == 0 && liveNeighbors == 3) {
                     board[row][col] = 1;
-                }
+                }// 规则 4
             }
         }
     }
