@@ -106,3 +106,4 @@ public class L2022211592_19_Test {
         },"Irregular board should throw an IllegalArgumentException");
     }
 }
+//等价类划分的非常好
